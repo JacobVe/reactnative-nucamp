@@ -20,6 +20,7 @@ import { fetchCampsites } from "../features/campsites/campsitesSlice.js";
 import { fetchComments } from "../features/comments/commentsSlice.js";
 import { fetchPromotions } from "../features/promotions/promotionsSlice.js";
 import ReservationScreen from "./ReservationScreens.js";
+import FavouritesScreen from "./FavouritesScreen.js";
 
 const Drawer = createDrawerNavigator();
 
@@ -152,6 +153,30 @@ const ReservationNavigator = () => {
 	);
 };
 
+const FavouritesNavigator = () => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator initialRouteName="Contact" screenOptions={screenOptions}>
+			<Stack.Screen
+				name="Favourites"
+				component={FavouritesScreen}
+				options={({ navigation }) => ({
+					title: "Favourite Campsites",
+					headerLeft: () => (
+						<Icon
+							name="heart"
+							type="font-awesome"
+							iconStyle={styles.stackIcon}
+							onPress={() => navigation.toggleDrawer()}
+						/>
+					),
+				})}
+			/>
+		</Stack.Navigator>
+	);
+};
+
 const CustomDrawerContent = (props) => (
 	<DrawerContentScrollView {...props}>
 		<View style={styles.drawerHeader}>
@@ -228,6 +253,22 @@ const Main = () => {
 						drawerIcon: ({ color }) => (
 							<Icon
 								name="tree"
+								type="font-awesome"
+								size={24}
+								styleIcon={{ width: 24 }}
+								color={color}
+							/>
+						),
+					}}
+				/>
+				<Drawer.Screen
+					name="Favourites"
+					component={FavouritesNavigator}
+					options={{
+						title: "My Favourites",
+						drawerIcon: ({ color }) => (
+							<Icon
+								name="heart"
 								type="font-awesome"
 								size={24}
 								styleIcon={{ width: 24 }}
