@@ -21,6 +21,7 @@ import { fetchComments } from "../features/comments/commentsSlice.js";
 import { fetchPromotions } from "../features/promotions/promotionsSlice.js";
 import ReservationScreen from "./ReservationScreens.js";
 import FavouritesScreen from "./FavouritesScreen.js";
+import LoginScreen from "./LoginScreen.js";
 
 const Drawer = createDrawerNavigator();
 
@@ -157,7 +158,7 @@ const FavouritesNavigator = () => {
 	const Stack = createStackNavigator();
 
 	return (
-		<Stack.Navigator initialRouteName="Contact" screenOptions={screenOptions}>
+		<Stack.Navigator screenOptions={screenOptions}>
 			<Stack.Screen
 				name="Favourites"
 				component={FavouritesScreen}
@@ -166,6 +167,29 @@ const FavouritesNavigator = () => {
 					headerLeft: () => (
 						<Icon
 							name="heart"
+							type="font-awesome"
+							iconStyle={styles.stackIcon}
+							onPress={() => navigation.toggleDrawer()}
+						/>
+					),
+				})}
+			/>
+		</Stack.Navigator>
+	);
+};
+
+const LoginNavigator = () => {
+	const Stack = createStackNavigator();
+
+	return (
+		<Stack.Navigator screenOptions={screenOptions}>
+			<Stack.Screen
+				name="Login"
+				component={LoginScreen}
+				options={({ navigation }) => ({
+					headerLeft: () => (
+						<Icon
+							name="sign-in"
 							type="font-awesome"
 							iconStyle={styles.stackIcon}
 							onPress={() => navigation.toggleDrawer()}
@@ -213,6 +237,22 @@ const Main = () => {
 				drawerStyle={{ backgroundColor: "#CEC8FF" }}
 				drawerContent={CustomDrawerContent}
 			>
+				<Drawer.Screen
+					name="Login"
+					component={LoginNavigator}
+					options={{
+						title: "Login",
+						drawerIcon: ({ color }) => (
+							<Icon
+								name="sign-in"
+								type="font-awesome"
+								size={24}
+								styleIcon={{ width: 24 }}
+								color={color}
+							/>
+						),
+					}}
+				/>
 				<Drawer.Screen
 					name="Home"
 					component={HomeNavigator}
